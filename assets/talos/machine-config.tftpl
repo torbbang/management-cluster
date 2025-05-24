@@ -1,0 +1,7 @@
+machine:
+  kubelet:
+    image: ghcr.io/siderolabs/kubelet:v${k8s_version}
+  network:
+    hostname: ${hostname}
+cluster:
+  allowSchedulingOnControlPlanes: true
