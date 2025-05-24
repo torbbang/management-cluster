@@ -25,11 +25,13 @@ resource "talos_machine_bootstrap" "cluster" {
   node                 = element( split("/", var.node.cidr_address), 0)
   endpoint             = element( split("/", var.node.cidr_address), 0)
   client_configuration = talos_machine_secrets.cluster.client_configuration
+  depends_on = [
+    talos_machine_configuration_apply.nodeconfig,
+  ]
 }
 
 data "talos_cluster_health" "cluster" {
   depends_on = [
-    talos_machine_configuration_apply.nodeconfig,
     talos_machine_bootstrap.cluster
   ]
   client_configuration = talos_machine_secrets.cluster.client_configuration
